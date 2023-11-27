@@ -1,9 +1,6 @@
 package com.sopl.sopl.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -24,4 +21,16 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Music> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "followUser", cascade = CascadeType.ALL)
+    private List<Follow> followList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "followedUser", cascade = CascadeType.ALL)
+    private List<Follow> followedList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "sender")
+    private List<Message> senderList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "receiver")
+    private List<Message> receiverList = new ArrayList<>();
 }

@@ -1,11 +1,11 @@
 package com.sopl.sopl.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -20,4 +20,6 @@ public class Music {
     @JoinColumn(name = "id")
     private User user;
 
+    @OneToMany(mappedBy = "music")
+    private List<Comment> comments = new ArrayList<>();
 }
