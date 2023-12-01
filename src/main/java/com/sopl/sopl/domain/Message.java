@@ -12,12 +12,12 @@ public class Message {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    @Column(name = "sender_id")
+    @JoinColumn(name = "sender_id")
+//    @Column(name = "sender_id")
     private User sender;
 
-    @JoinColumn(name = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "receiver_id")
+    @JoinColumn(name = "receiver_id")
+//    @Column(name = "receiver_id")
     private User receiver;
 }

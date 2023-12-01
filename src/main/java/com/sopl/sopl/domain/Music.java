@@ -17,7 +17,8 @@ public class Music {
     private String title;
     private String s3_address;
 
-    @JoinColumn(name = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "music")
