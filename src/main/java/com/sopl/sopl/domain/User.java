@@ -1,6 +1,8 @@
 package com.sopl.sopl.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -14,8 +16,14 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    @NotEmpty
+    @Email
     private String email;
+
+    @NotEmpty
     private String name;
+
+    @NotEmpty
     private String password;
 
     @OneToMany(mappedBy = "user")
