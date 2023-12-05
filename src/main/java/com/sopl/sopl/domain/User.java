@@ -13,8 +13,10 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
+
     private String email;
     private String name;
+    private String password;
 
     @OneToMany(mappedBy = "user")
     private List<Music> musics = new ArrayList<>();
@@ -33,4 +35,10 @@ public class User {
 
     @OneToMany(mappedBy = "receiver")
     private List<Message> receiverList = new ArrayList<>();
+
+    public User(String email, String name, String password) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+    }
 }
