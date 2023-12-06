@@ -19,4 +19,14 @@ public class Follow {
     @JoinColumn(name = "followed_id")
     private User followedUser;
 
+    /* 연관 관계 메서드 */
+    public void setFollowUser(User followUser) {
+        this.followUser = followUser;
+        followUser.getFollowList().add(this);
+    }
+
+    public void setFollowedUser(User followedUser) {
+        this.followedUser = followedUser;
+        followedUser.getFollowedList().add(this);
+    }
 }

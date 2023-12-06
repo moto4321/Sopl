@@ -19,4 +19,10 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "music_id")
     private Music music;
+
+    /* 연관 관계 메서드 */
+    public void setUserComment(User user) {
+        this.user = user;
+        user.getComments().add(this);
+    }
 }

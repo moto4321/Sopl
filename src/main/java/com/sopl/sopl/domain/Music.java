@@ -23,4 +23,10 @@ public class Music {
 
     @OneToMany(mappedBy = "music")
     private List<Comment> comments = new ArrayList<>();
+
+    /* 연관 관계 메서드 */
+    public void setUserMusic(User user) {
+        this.user = user;
+        user.getMusics().add(this);
+    }
 }

@@ -30,7 +30,7 @@ public class User {
     private List<Music> musics = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<Music> comments = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "followUser", cascade = CascadeType.ALL)
     private List<Follow> followList = new ArrayList<>();

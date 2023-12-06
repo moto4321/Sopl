@@ -23,4 +23,12 @@ public class MessageRepository {
                 .setParameter("receiver_id", receiverId)
                 .getResultList();
     }
+
+    public void saveMessage(Message message) {
+        if (message.getId() == null) {
+            em.persist(message);
+        } else {
+            em.merge(message);
+        }
+    }
 }

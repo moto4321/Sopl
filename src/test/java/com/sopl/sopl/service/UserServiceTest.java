@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @Transactional
 public class UserServiceTest {
-    @Autowired UserService userService;
+    @Autowired private UserService userService;
 
     @Test
     public void joinUser() {
