@@ -18,9 +18,9 @@ public class UserRepository {
     /**
      * 회원가입
      */
-    public Long save(User user) {
+    public User save(User user) {
         em.persist(user);
-        return user.getId();
+        return user;
     }
 
     /**
@@ -34,7 +34,7 @@ public class UserRepository {
     /**
      * email 조회
      */
-    public Optional<User> findUserByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         System.out.println("haha:: " + email);
 //        User findUser = em.find(User.class, email);
         List<User> findUserList = em.createQuery(
@@ -43,6 +43,10 @@ public class UserRepository {
 //        return Optional.ofNullable(findUser);
         return findUserList.stream().findAny();
     }
+
+//    public User update() {
+//
+//    }
 
 
 

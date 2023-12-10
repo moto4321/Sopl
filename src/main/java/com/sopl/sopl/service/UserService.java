@@ -16,7 +16,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public Long registerUser(User user) {
+    public User registerUser(User user) {
         validateDuplicatedEmail(user);
 
         return userRepository.save(user);
@@ -25,7 +25,7 @@ public class UserService {
     private void validateDuplicatedEmail(User user) {
         String userEmail = user.getEmail();
         System.out.println("userEmail:: " + userEmail);
-        Optional<User> findUser = userRepository.findUserByEmail(userEmail);
+        Optional<User> findUser = userRepository.findByEmail(userEmail);
         System.out.println("findUser:: " + findUser);
         if (findUser.isPresent()) {
             throw new IllegalStateException("이미 존재하는 Email입니다.");

@@ -3,7 +3,9 @@ package com.sopl.sopl.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Builder;
 import lombok.Getter;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +46,11 @@ public class User {
     @OneToMany(mappedBy = "receiver")
     private List<Message> receiverList = new ArrayList<>();
 
+    @Builder
     public User(String email, String name, String password) {
+        Assert.hasText(email, "email은 필수값입니다.");
+        Assert.hasText(name, "name은 필수값입니다.");
+        Assert.hasText(password, "password은 필수값입니다.");
         this.email = email;
         this.name = name;
         this.password = password;
