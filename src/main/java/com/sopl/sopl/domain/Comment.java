@@ -1,7 +1,8 @@
 package com.sopl.sopl.domain;
 
-import jakarta.persistence.*;
 import lombok.Getter;
+
+import javax.persistence.*;
 
 @Entity
 @Getter
