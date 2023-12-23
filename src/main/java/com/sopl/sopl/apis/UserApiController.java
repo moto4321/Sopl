@@ -1,5 +1,6 @@
 package com.sopl.sopl.apis;
 
+import com.sopl.sopl.service.oauth.KakaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,8 @@ public class UserApiController {
 //    private String googleClientPw;
 //    @Value("${oauth.google.redirectUrl}")
 //    private String googleRedirectUrl;
+
+    private final KakaoService kakaoService;
 
     @Value("${oauth.kakao.client.id}")
     private String kakaoClientId;
@@ -53,13 +56,13 @@ public class UserApiController {
     @GetMapping("/{type}/oauth/redirect") // type: google, kakao ...
     public void oauthLogin(HttpServletRequest request,
                            @PathVariable(value = "type") String type,
-                           @RequestParam(value = "code") String authCode,
+                           @RequestParam(value = "code") String code,
                            HttpServletResponse response) {
-        System.out.println("authCode:: " + authCode);
+        System.out.println("authCode:: " + code);
         System.out.println("type:: " + type);
-//         http://localhost:8080/api/kakao/oauth/redirect?code=OuelCZYTM-at2vDe0AHV3jX-M-v4mFlizzX-t-YP-QY_BmecifQkEHK3CpcKPXSXAAABjHfBXtTDukuslKNZWg
-//        String requestURL = oauthService.request(type.toUpperCase());
-//        response.sendRedirect(requestURL);
-//        return "aaaaaa";
+
+        // code로 사용자 정보 요청 로직
+        String access_Token = kakaoService.getAccessToken(code);
+        System.out.println("###access_token#### : " + access_Token);
     }
 }
