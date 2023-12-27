@@ -1,0 +1,49 @@
+#name: Create Branch on Issue Creation
+#
+#on:
+#  issues:
+#    types:
+#      - opened
+#
+#jobs:
+#  create-branch:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout repository
+#        uses: actions/checkout@v2
+#
+#      - name: Create branch
+#        run: |
+#          ISSUE_NUMBER=$(echo "${{ github.event.issue.number }}")
+#          ISSUE_TYPE=$(echo "${{ github.event.issue.labels.*.name }}") # Assumes labels are used to specify issue type
+#
+#          # Default to "feature" if no labels or if labels don't match "bug"
+#          if [ "$ISSUE_TYPE" == "bug" ]; then
+#            BRANCH_PREFIX="bugfix"
+#          else
+#            BRANCH_PREFIX="feature"
+#          fi
+#
+#          BRANCH_NAME="$BRANCH_PREFIX/issue-${ISSUE_NUMBER}"
+#          git checkout -b $BRANCH_NAME
+#          git push origin $BRANCH_NAME
+
+
+name: Create Issue Branch
+on:
+  issues:
+    types: [ assigned ]
+  issue_comment:
+    types: [ created ]
+  pull_request:
+    types: [ closed ]
+
+jobs:
+  create_issue_branch_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Issue Branch
+        uses: robvanderleek/create-issue-branch@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,33 @@
+branchName: '${issue.number}'
+branches:
+  - label: 'bug'
+    prefix: bug/
+  - label: 'documentation'
+    prefix: documentation/
+  - label: 'duplicate'
+    prefix: duplicate/
+  - label: 'enhancement'
+    prefix: enhancement/
+  - label: 'feature'
+    prefix: feature/
+  - label: 'hotfix'
+    prefix: hotfix/
+  - label: 'develop'
+    prefix: develop/
+  - label: 'master'
+    prefix: master/
+  - label: 'release'
+    prefix: release/
+  - label: 'good-first-issue'
+    prefix: good-first-issue/
+  - label: 'help-wanted'
+    prefix: help-wanted/
+  - label: 'init'
+    prefix: init/
+  - label: 'invalid'
+    prefix: invalid/
+  - label: 'question'
+    prefix: question/
+  - label: 'wontfix'
+    prefix: wontfix/
+autoCloseIssue: true
