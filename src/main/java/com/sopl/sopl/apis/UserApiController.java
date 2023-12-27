@@ -64,5 +64,8 @@ public class UserApiController {
         // code로 사용자 정보 요청 로직
         String access_Token = kakaoService.getAccessToken(code);
         System.out.println("###access_token#### : " + access_Token);
+        kakaoService.getUserinfo(access_Token);
+
+//        kakaoService.login(access_Token);
     }
 }

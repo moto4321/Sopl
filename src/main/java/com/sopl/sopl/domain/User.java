@@ -15,7 +15,6 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
     private Long id;
 
     @NotEmpty
@@ -23,10 +22,10 @@ public class User {
     private String email;
 
     @NotEmpty
-    private String name;
+    private String nickname;
 
-    @NotEmpty
-    private String password;
+//    @NotEmpty
+//    private String password;
 
     @OneToMany(mappedBy = "user")
     private List<Music> musics = new ArrayList<>();
@@ -47,12 +46,14 @@ public class User {
     private List<Message> receiverList = new ArrayList<>();
 
     @Builder
-    public User(String email, String name, String password) {
+    public User(Long id, String email, String nickname) {
         Assert.hasText(email, "email은 필수값입니다.");
-        Assert.hasText(name, "name은 필수값입니다.");
-        Assert.hasText(password, "password은 필수값입니다.");
+        Assert.hasText(nickname, "name은 필수값입니다.");
+        this.id = id;
         this.email = email;
-        this.name = name;
-        this.password = password;
+        this.nickname= nickname;
+    }
+
+    public User() {
     }
 }
