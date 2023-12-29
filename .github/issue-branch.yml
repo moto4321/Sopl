@@ -1,5 +1,5 @@
-branchName: short
-autoCloseIssue: true
+#branchName: short
+#commentMessage: 'Branch ${branchName} created for issue: ${issue.title}'
 branches:
   - label: bug
     prefix: bug/
@@ -29,4 +29,4 @@ branches:
     prefix: invalid/
   - label: question
     prefix: question/
-commentMessage: 'Branch ${branchName} created for issue: ${issue.title}'
+autoCloseIssue: true
