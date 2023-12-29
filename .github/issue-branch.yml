@@ -1,34 +1,32 @@
 branchName: short
 autoCloseIssue: true
 branches:
-  - label: 'bug'
+  - label: bug
     prefix: bug/
-  - label: 'documentation'
+  - label: documentation
     prefix: documentation/
-  - label: 'duplicate'
+  - label: duplicate
     prefix: duplicate/
-  - label: 'enhancement'
+  - label: enhancement
     prefix: enhancement/
-  - label: 'feature'
+  - label: feature
     prefix: feature/
-  - label: 'hotfix'
+  - label: hotfix
     prefix: hotfix/
-  - label: 'develop'
+  - label: develop
     prefix: develop/
-  - label: 'master'
+  - label: master
     prefix: master/
-  - label: 'release'
+  - label: release
     prefix: release/
-  - label: 'good-first-issue'
+  - label: good-first-issue
     prefix: good-first-issue/
-  - label: 'help-wanted'
+  - label: help-wanted
     prefix: help-wanted/
-  - label: 'init'
+  - label: init
     prefix: init/
-  - label: 'invalid'
+  - label: invalid
     prefix: invalid/
-  - label: 'question'
+  - label: question
     prefix: question/
-  - label: 'wontfix'
-    prefix: wontfix/
 commentMessage: 'Branch ${branchName} created for issue: ${issue.title}'
