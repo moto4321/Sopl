@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sopl.sopl.domain.User;
 import com.sopl.sopl.repository.UserRepository;
 import com.sopl.sopl.service.RedisService;
+import com.sopl.sopl.service.UserService;
+import com.sopl.sopl.service.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.json.JSONParser;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -23,8 +27,10 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class KakaoService {
 
+    private final UserService userService;
     private final RedisService redisService;
     private final UserRepository userRepository;
 
@@ -100,7 +106,10 @@ public class KakaoService {
 //        redisService.saveToken();
 //    }
 
-    public Object getUserinfo(String access_token) {
+    public UserInfoDto getUserinfo(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            String access_token) {
 //        HashMap<String, Object> userInfo = new HashMap<String, Object>();
 
         String requestURL = "https://kapi.kakao.com/v2/user/me";
@@ -135,45 +144,30 @@ public class KakaoService {
 //            userInfo.put("email", email);
 //            userInfo.put("nickname", nickname);
 
-            User userInfo = User.builder().id(id).email(email).nickname(nickname).build();
-
+            User user = User.builder().id(id).email(email).nickname(nickname).build();
+            UserInfoDto userInfo = new UserInfoDto(id, email);
 
             /* 유저 테이블에 존재하는지 확인 */
-            Optional<User> userData = userRepository.findUserById(userInfo.getId());
+            Optional<User> userData = userRepository.findUserById(userInfo.getUserId());
+
+            log.info("111" + userData.isPresent());
 
             /* 유저 테이블에 있으면 로그인 처리, 없으면 넣고 로그인 처리 */
             if (userData.isPresent()) {
                 // 로그인
-                return "login";
+                userService.loginUser(request, response, userInfo, access_token);
             } else {
                 // 회원가입
-                userRepository.save(userInfo);
+                userRepository.save(user);
                 // 로그인
+                userService.loginUser(request, response, userInfo, access_token);
             }
 
-
+            return userInfo;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-//        KakaoVo result = kakaoDao.findkakao(userInfo);
-//        // 저장되어있는지 확인
-//        System.out.println("S :" + result);
-//
-//        if(result ==null) {
-//            //result null 이면 정보가 저장 안되어있는거라서 저보를 저장.
-//            kakaoDao.kakaoinsert(userInfo);
-//            //저장하기위해 repository 로 이동
-//            return kakaoDao.findkakao(userInfo);
-//            // 정보 저장후 컨트롤러에 정보를 보냄
-//            //result 를 리턴으로 보내면 null 이 리턴되므로 위코드를 사용.
-//        }else {
-//            return result;
-//            //정보가 있으므로 result 를 리턴함
-//        }
-//
-//    }
+        return null;
     }
 }

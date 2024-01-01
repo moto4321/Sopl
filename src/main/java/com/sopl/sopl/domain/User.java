@@ -24,6 +24,9 @@ public class User {
     @NotEmpty
     private String nickname;
 
+    @NotEmpty
+    private String provider;
+
 //    @NotEmpty
 //    private String password;
 
@@ -46,9 +49,10 @@ public class User {
     private List<Message> receiverList = new ArrayList<>();
 
     @Builder
-    public User(Long id, String email, String nickname) {
+    public User(Long id, String email, String nickname, String provider) {
         Assert.hasText(email, "email은 필수값입니다.");
         Assert.hasText(nickname, "name은 필수값입니다.");
+        Assert.hasText(provider, "provider값은 필수값입니다.");
         this.id = id;
         this.email = email;
         this.nickname= nickname;

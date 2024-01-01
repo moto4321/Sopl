@@ -1,5 +1,6 @@
 package com.sopl.sopl.apis;
 
+import com.sopl.sopl.service.UserService;
 import com.sopl.sopl.service.oauth.KakaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -55,17 +56,15 @@ public class UserApiController {
 
     @GetMapping("/{type}/oauth/redirect") // type: google, kakao ...
     public void oauthLogin(HttpServletRequest request,
+                           HttpServletResponse response,
                            @PathVariable(value = "type") String type,
-                           @RequestParam(value = "code") String code,
-                           HttpServletResponse response) {
+                           @RequestParam(value = "code") String code) {
         System.out.println("authCode:: " + code);
         System.out.println("type:: " + type);
 
         // code로 사용자 정보 요청 로직
         String access_Token = kakaoService.getAccessToken(code);
         System.out.println("###access_token#### : " + access_Token);
-        kakaoService.getUserinfo(access_Token);
-
-//        kakaoService.login(access_Token);
+        kakaoService.getUserinfo(request, response, access_Token);
     }
 }
