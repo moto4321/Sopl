@@ -109,7 +109,8 @@ public class KakaoService {
     public UserInfoDto getUserinfo(
             HttpServletRequest request,
             HttpServletResponse response,
-            String access_token) {
+            String access_token,
+            String type) {
 //        HashMap<String, Object> userInfo = new HashMap<String, Object>();
 
         String requestURL = "https://kapi.kakao.com/v2/user/me";
@@ -144,13 +145,11 @@ public class KakaoService {
 //            userInfo.put("email", email);
 //            userInfo.put("nickname", nickname);
 
-            User user = User.builder().id(id).email(email).nickname(nickname).build();
-            UserInfoDto userInfo = new UserInfoDto(id, email);
+            User user = User.builder().id(id).email(email).nickname(nickname).provider(type).build();
+            UserInfoDto userInfo = new UserInfoDto(id, email, nickname);
 
             /* 유저 테이블에 존재하는지 확인 */
             Optional<User> userData = userRepository.findUserById(userInfo.getUserId());
-
-            log.info("111" + userData.isPresent());
 
             /* 유저 테이블에 있으면 로그인 처리, 없으면 넣고 로그인 처리 */
             if (userData.isPresent()) {

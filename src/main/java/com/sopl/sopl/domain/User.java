@@ -55,7 +55,8 @@ public class User {
         Assert.hasText(provider, "provider값은 필수값입니다.");
         this.id = id;
         this.email = email;
-        this.nickname= nickname;
+        this.nickname = nickname;
+        this.provider = provider;
     }
 
     public User() {

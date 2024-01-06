@@ -47,8 +47,8 @@ public class UserService {
         HttpSession session = request.getSession();
 //        session.setAttribute(SessionConstants.LOGIN_MEMBER, user);
 //        session.setAttribute(SessionConstants.ACCESS_TOKEN, access_token);
-        session.setAttribute("userId", userInfo);
-        session.setAttribute("access_token", access_token);
+        session.setAttribute("userInfo", userInfo);
+        session.setAttribute("accessToken", access_token);
         log.info("testSession:: " + session.getId());
     }
 }
